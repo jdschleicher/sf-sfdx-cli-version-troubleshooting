@@ -32,3 +32,25 @@ jobs:
           shell: pwsh
           run: . ./ci_system/sfdx/create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
     
+  SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+          uses: actions/checkout@v3
+
+        - name: INSTALL SFDX CLI
+          shell: pwsh
+          run: |
+            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+
+        - name: AUTHENTICATE DEVHUB AUTH URL
+          env:
+              DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
+          shell: pwsh
+          run: . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
+
+        - name: CREATE SCRATCH ORG
+          shell: pwsh
+          run: . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
