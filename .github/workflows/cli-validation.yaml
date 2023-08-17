@@ -37,6 +37,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+        - name: NODE INSTALL OVERWRITE FOR ISSUE https://github.com/forcedotcom/cli/issues/2125
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18.14.2'
+
         - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
           uses: actions/checkout@v3
 
