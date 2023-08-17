@@ -29,5 +29,5 @@ jobs:
     
         - name: CREATE SCRATCH ORG
           shell: pwsh
-          run: . ./ci_system/sfdx/create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias $env:SCRATCH_ORG_ALIAS
+          run: . ./ci_system/sfdx/create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
     
