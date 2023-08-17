@@ -16,7 +16,9 @@ jobs:
 
         - name: INSTALL SFDX CLI
           shell: pwsh
-          run: . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+          run: |
+            ls -R
+            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
 
         - name: AUTHENTICATE DEVHUB AUTH URL
           env:
