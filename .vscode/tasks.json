@@ -1,0 +1,32 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+                "args": [
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-Command"
+                ]
+            }
+        }
+    },
+    "tasks": [
+        {
+            "label": "GENERATE RECIPE BY OBJECTS DIRECTORY",
+            "type": "shell",
+            "command": "./dojo_toolkit/org-data-seeding/scripts/main_generate_recipe_by_repository.ps1",
+            "problemMatcher": []
+        },
+        {
+            "label": "APPLY RECIPE TO TARGET ORG",
+            "type": "shell",
+            "command": "./dojo_toolkit/org-data-seeding/scripts/apply_data_config.ps1",
+            "problemMatcher": []
+        }
+    ]
+}
