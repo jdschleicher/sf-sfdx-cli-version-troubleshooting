@@ -85,8 +85,8 @@ jobs:
               DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
           shell: pwsh
           run: |
-            Write-Host ${{ github.runner.temp }}
-            Write-Host ${{ runner.temp }}
+            Write-Host "github runner : ${{ github.runner.temp }}"
+            Write-Host "runner context :${{ runner.temp }} "
             . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
 
         - name: CREATE PACKAGE VERSION
