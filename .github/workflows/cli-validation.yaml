@@ -7,6 +7,7 @@ on:
 env:
   DEVHUB_ALIAS:                     "devhub"
   CLI_VERSION:                      ${{ vars.SFDX_CLI_VERSION }}
+  SF_LOGS:                          ${{ runner.temp }}
 
 jobs:
  
@@ -89,3 +90,10 @@ jobs:
         - name: CREATE PACKAGE VERSION
           shell: pwsh
           run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "CPQ"
+
+        - name: SAVE AUTORABIT CODESCAN ARTIFACT
+          if: always() 
+          uses: actions/upload-artifact@v2
+          with:
+            name: SF_LOGS_RESULT
+            path: ${{ env.SF_LOGS }}
