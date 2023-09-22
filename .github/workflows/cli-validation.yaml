@@ -7,7 +7,6 @@ on:
 env:
   DEVHUB_ALIAS:                     "devhub"
   CLI_VERSION:                      ${{ vars.SFDX_CLI_VERSION }}
-  SF_LOGS:                          ${{ github.runner.temp }}
 
 jobs:
  
@@ -85,7 +84,10 @@ jobs:
           env:
               DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
           shell: pwsh
-          run: . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
+          run: |
+            Write-Host ${{ github.runner.temp }}
+            Write-Host ${{ runner.temp }}
+            . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
 
         - name: CREATE PACKAGE VERSION
           shell: pwsh
@@ -96,4 +98,4 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: SF_LOGS_RESULT
-            path: ${{ env.SF_LOGS }}
+            path: ${{ runner.temp }}
