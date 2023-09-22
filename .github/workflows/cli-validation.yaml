@@ -30,7 +30,7 @@ jobs:
     
         - name: CREATE SCRATCH ORG
           shell: pwsh
-          run: . ./ci_system/sfdx/create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
+          run: . ./ci_system/sfdx/sfdx_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
     
   SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
     
@@ -38,10 +38,10 @@ jobs:
 
     steps:
 
-        - name: NODE INSTALL OVERWRITE FOR ISSUE https://github.com/forcedotcom/cli/issues/2125
-          uses: actions/setup-node@v3
-          with:
-            node-version: '18.14.2'
+        # - name: NODE INSTALL OVERWRITE FOR ISSUE https://github.com/forcedotcom/cli/issues/2125
+        #   uses: actions/setup-node@v3
+        #   with:
+        #     node-version: '18.14.2'
 
         - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
           uses: actions/checkout@v3
@@ -60,3 +60,32 @@ jobs:
         - name: CREATE SCRATCH ORG
           shell: pwsh
           run: . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
+
+  Package_Version_Create:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+        # - name: NODE INSTALL OVERWRITE FOR ISSUE https://github.com/forcedotcom/cli/issues/2125
+        #   uses: actions/setup-node@v3
+        #   with:
+        #     node-version: '18.14.2'
+
+        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+          uses: actions/checkout@v3
+
+        - name: INSTALL SFDX CLI
+          shell: pwsh
+          run: |
+            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+
+        - name: AUTHENTICATE DEVHUB AUTH URL
+          env:
+              DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
+          shell: pwsh
+          run: . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
+
+        - name: CREATE PACKAGE VERSION
+          shell: pwsh
+          run: . ./ci_system/sfdx/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "CPQ"
