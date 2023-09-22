@@ -88,4 +88,4 @@ jobs:
 
         - name: CREATE PACKAGE VERSION
           shell: pwsh
-          run: . ./ci_system/sfdx/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "CPQ"
+          run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "CPQ"
