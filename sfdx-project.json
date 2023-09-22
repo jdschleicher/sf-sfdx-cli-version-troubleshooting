@@ -2,12 +2,15 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "package": "",
+      "package": "dx-cli-testing",
       "versionNumber": "1.0.0.NEXT",
-      "default": true
+      "default": true,
+      "versionName": "ver 0.1",
+      "versionDescription": "test package for troulbeshooting Salesforce CLI issues"
     }
   ],
   "sourceApiVersion": "57.0",
   "packageAliases": {
+    "dx-cli-testing": "0HoOE000000001J0AQ"
   }
 }
