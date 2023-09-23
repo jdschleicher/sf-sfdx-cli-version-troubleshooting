@@ -11,7 +11,7 @@ env:
 jobs:
  
   Install_SFDX_CLI_and_Create_Scratch_Org:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 
     steps:
         - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
