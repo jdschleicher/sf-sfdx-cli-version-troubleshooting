@@ -98,3 +98,38 @@ jobs:
           with:
             name: SF_LOGS_RESULT
             path: ${{ runner.temp }}
+
+
+  full-package-validation-post-merge-workflow-completion:
+      
+    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
+    
+   
+    steps:
+
+      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+        uses: actions/checkout@v3
+
+      - name: INSTALL SFDX CLI
+        shell: pwsh
+        run: |
+          . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+
+      - name: AUTHENTICATE DEVHUB AUTH URL
+        env:
+            DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
+        shell: pwsh
+        run: |
+          Write-Host "runner context :${{ runner.temp }} "
+          . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
+
+      - name: CREATE PACKAGE VERSION
+        shell: pwsh
+        run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
+
+      - name: SAVE TEMP ARTIFACT
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: SF_LOGS_RESULT
+          path: ${{ runner.temp }}
