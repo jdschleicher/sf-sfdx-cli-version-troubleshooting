@@ -49,3 +49,5 @@ utam-lint.sarif
 
 # shift-left-toolkit artifacts for troubleshooting
 .github-workflow-tmp/*
+
+config/*

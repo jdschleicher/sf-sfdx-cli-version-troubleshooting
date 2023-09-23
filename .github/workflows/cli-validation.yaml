@@ -85,7 +85,6 @@ jobs:
               DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
           shell: pwsh
           run: |
-            Write-Host "github runner : ${{ github.runner.temp }}"
             Write-Host "runner context :${{ runner.temp }} "
             . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
 
@@ -93,7 +92,7 @@ jobs:
           shell: pwsh
           run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
 
-        - name: SAVE AUTORABIT CODESCAN ARTIFACT
+        - name: SAVE TEMP ARTIFACT
           if: always() 
           uses: actions/upload-artifact@v2
           with:
