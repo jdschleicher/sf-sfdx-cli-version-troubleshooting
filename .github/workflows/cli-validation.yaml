@@ -127,7 +127,7 @@ jobs:
           name: SF_LOGS_RESULT
           path: ${{ runner.temp }}
 
-  create-scratch:
+  create-scratch-jwt-auth-devhub:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 
     env:
@@ -152,10 +152,37 @@ jobs:
       - name: AUTHENTICATE DEVHUB PWSH JWT
         shell: pwsh
         run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
-    
-      # - name: AUTHENTICATE DEVHUB ORG
-      #   shell: pwsh
-      #   run: . .\ci-cd\authenticate\authenticate-salesforce-authurl.ps1 -org_alias $env:DEVHUB_ALIAS -auth_url $env:DEVHUB_AUTH_URL
+
+      - name: CREATE SCRATCH ORG
+        shell: pwsh
+        run: |
+          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel trace
+
+
+  create-scratch-devhub-auth-url:
+    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
+
+    env:
+      DEVHUB_ALIAS:                 "devhub"
+      SCRATCH_ORG_ALIAS:            "ci-scratch-org"
+
+    steps:
+
+      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+        uses: actions/checkout@v3
+
+      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
+        shell: pwsh
+        run: |
+          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
+        
+      - name: AUTHENTICATE DEVHUB AUTH URL
+        env:
+            DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
+        shell: pwsh
+        run: |
+          Write-Host "runner context :${{ runner.temp }} "
+          . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
 
       - name: CREATE SCRATCH ORG
         shell: pwsh
