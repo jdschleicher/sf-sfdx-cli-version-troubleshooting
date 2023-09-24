@@ -225,7 +225,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: SF_LOGS_RESULT
-          path: ${{ runner.temp }}
+          path: D:\a\
           
 
   create-scratch-devhub-auth-url:
