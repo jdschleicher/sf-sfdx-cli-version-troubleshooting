@@ -2,7 +2,6 @@ param($package_version_creation_details)
 
 Import-Module -DisableNameChecking "$PSScriptRoot/../github/github-environment-service.psm1"
 Import-Module -DisableNameChecking "$PSScriptRoot/../github/github-release-service.psm1"
-Import-Module -DisableNameChecking "$PSScriptRoot/../slack/slack-service.psm1"
 Import-Module -DisableNameChecking "$PSScriptRoot/../package/package_version_service.psm1"
 
 Write-Host 'CREATING PACKAGE VERSION'
