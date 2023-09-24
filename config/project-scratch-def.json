@@ -1,18 +1,11 @@
 {
-    "orgName": "Dreamhouse",
-    "edition": "Developer",
+    "orgName": "[[org]]",
+    "edition": "Enterprise",
     "features": [
-        "Walkthroughs", 
-        "EnableSetPasswordInApi", 
-        "CPQ"
-    ],
+      ],
     "settings": {
-        "lightningExperienceSettings": {
-            "enableS1DesktopEnabled": true
-        },
-        "mobileSettings": {
-            "enableS1EncryptedStoragePref2": false
-        }
-    },
-    "release": "preview"
-}
+    }
+  }
+  
+  
+  

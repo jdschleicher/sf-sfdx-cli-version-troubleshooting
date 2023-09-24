@@ -6,10 +6,11 @@
       "versionNumber": "1.0.0.NEXT",
       "default": true,
       "versionName": "ver 0.1",
+      "definitionFile": "config/project-scratch-def.json",
       "versionDescription": "test package for troulbeshooting Salesforce CLI issues"
     }
   ],
-  "sourceApiVersion": "57.0",
+  "sourceApiVersion": "54.0",
   "packageAliases": {
     "dx-cli-testing": "0HoOE000000001J0AQ"
   }
