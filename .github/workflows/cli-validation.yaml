@@ -97,7 +97,6 @@ jobs:
       
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
     
-   
     steps:
 
       - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
@@ -127,11 +126,47 @@ jobs:
           name: SF_LOGS_RESULT
           path: ${{ runner.temp }}
 
+  full-package-validation-post-merge-auth-jwt-devhub:
+
+    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
+    
+    env:
+      DEVHUB_ALIAS:                 "devhub"
+      SF_DEVHUB_CLIENTID:           ${{ secrets.SF_DEVHUB_CLIENTID }}
+      SF_DEVHUB_KEY_BASE64:         ${{ secrets.SF_DEVHUB_KEY_BASE64 }}
+      SF_DEVHUB_ORG_URL:            ${{ secrets.SF_DEVHUB_ORG_URL }}
+      DEVHUB_ORG_USERNAME:          ${{ secrets.DEVHUB_ORG_USERNAME }}
+      
+    steps:
+
+      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+        uses: actions/checkout@v3
+
+      - name: INSTALL SFDX CLI
+        shell: pwsh
+        run: |
+          . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+
+      - name: AUTHENTICATE DEVHUB PWSH JWT
+        shell: pwsh
+        run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
+  
+      - name: CREATE PACKAGE VERSION
+        shell: pwsh
+        run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
+
+      - name: SAVE TEMP ARTIFACT
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: SF_LOGS_RESULT
+          path: ${{ runner.temp }}
+        
+         
   create-scratch-jwt-auth-devhub:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 
     env:
-      DTC_RELEASE_CICD_KEY_BASE64:  ${{ secrets.DTC_RELEASE_CICD_KEY_BASE64 }}
       DEVHUB_ALIAS:                 "devhub"
       SF_DEVHUB_CLIENTID:           ${{ secrets.SF_DEVHUB_CLIENTID }}
       SF_DEVHUB_KEY_BASE64:         ${{ secrets.SF_DEVHUB_KEY_BASE64 }}
