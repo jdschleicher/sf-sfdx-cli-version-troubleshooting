@@ -102,11 +102,11 @@ jobs:
       - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
         uses: actions/checkout@v3
 
-      - name: INSTALL SFDX CLI
+      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
         shell: pwsh
         run: |
-          . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
-
+          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
+        
       - name: AUTHENTICATE DEVHUB AUTH URL
         env:
             DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
@@ -142,11 +142,11 @@ jobs:
       - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
         uses: actions/checkout@v3
 
-      - name: INSTALL SFDX CLI
+      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
         shell: pwsh
         run: |
-          . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
-
+          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
+        
       - name: AUTHENTICATE DEVHUB PWSH JWT
         shell: pwsh
         run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
