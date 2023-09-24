@@ -39,7 +39,7 @@ jobs:
           if: always() 
           uses: actions/upload-artifact@v2
           with:
-            name: SF_LOGS_RESULT
+            name: varos_sfdx_create_scratch
             path: ${{ runner.temp }}
 
   SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
@@ -73,7 +73,7 @@ jobs:
           if: always() 
           uses: actions/upload-artifact@v2
           with:
-            name: SF_LOGS_RESULT
+            name: ubuntu_sf_create_scratch_ps1
             path: ${{ runner.temp }}
             
   Package_Version_Create:
@@ -109,7 +109,7 @@ jobs:
           if: always() 
           uses: actions/upload-artifact@v2
           with:
-            name: SF_LOGS_RESULT
+            name: ubuntu_package_version_create
             path: ${{ runner.temp }}
 
   full-package-validation-auth-url:
@@ -145,7 +145,7 @@ jobs:
         if: always() 
         uses: actions/upload-artifact@v2
         with:
-          name: SF_LOGS_RESULT
+          name: varos_create_package_versiondevhub_auth_url
           path: ${{ runner.temp }}
 
   full-package-validation-auth-jwt-devhub:
@@ -184,7 +184,7 @@ jobs:
         if: always() 
         uses: actions/upload-artifact@v2
         with:
-          name: SF_LOGS_RESULT
+          name: varos_create_package_version_jwt
           path: ${{ runner.temp }}
         
          
@@ -224,7 +224,7 @@ jobs:
         if: always() 
         uses: actions/upload-artifact@v2
         with:
-          name: SF_LOGS_RESULT
+          name: varos_varcli_create_scratch_auth_devhub_jwt
           path: D:\a\
           
 
@@ -264,6 +264,6 @@ jobs:
         if: always() 
         uses: actions/upload-artifact@v2
         with:
-          name: SF_LOGS_RESULT
+          name: varos_varcli_create_scratch_auth_devhub_authurl
           path: ${{ runner.temp }}
           
