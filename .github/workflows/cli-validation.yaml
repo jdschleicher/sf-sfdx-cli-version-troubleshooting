@@ -218,7 +218,7 @@ jobs:
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
-          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --preserve --json
+          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
@@ -258,7 +258,7 @@ jobs:
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
-          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --preserve --json
+          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
