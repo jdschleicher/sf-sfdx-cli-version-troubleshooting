@@ -30,18 +30,23 @@ jobs:
     
         - name: CREATE SCRATCH ORG
           shell: pwsh
-          run: . ./ci_system/sfdx/sfdx_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
+          run: |
+            $Env:SF_LOG_LEVEL = "fatal"
+            $Env:SFDX_LOG_LEVEL = "fatal"
+            . ./ci_system/sfdx/sfdx_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
     
+        - name: SAVE TEMP ARTIFACT
+          if: always() 
+          uses: actions/upload-artifact@v2
+          with:
+            name: SF_LOGS_RESULT
+            path: ${{ runner.temp }}
+
   SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
     
     runs-on: ubuntu-latest
 
     steps:
-
-        # - name: NODE INSTALL OVERWRITE FOR ISSUE https://github.com/forcedotcom/cli/issues/2125
-        #   uses: actions/setup-node@v3
-        #   with:
-        #     node-version: '18.14.2'
 
         - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
           uses: actions/checkout@v3
@@ -59,18 +64,23 @@ jobs:
 
         - name: CREATE SCRATCH ORG
           shell: pwsh
-          run: . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
+          run: |
+            $Env:SF_LOG_LEVEL = "fatal"
+            $Env:SFDX_LOG_LEVEL = "fatal"
+            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
 
+        - name: SAVE TEMP ARTIFACT
+          if: always() 
+          uses: actions/upload-artifact@v2
+          with:
+            name: SF_LOGS_RESULT
+            path: ${{ runner.temp }}
+            
   Package_Version_Create:
 
     runs-on: ubuntu-latest
 
     steps:
-
-        # - name: NODE INSTALL OVERWRITE FOR ISSUE https://github.com/forcedotcom/cli/issues/2125
-        #   uses: actions/setup-node@v3
-        #   with:
-        #     node-version: '18.14.2'
 
         - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
           uses: actions/checkout@v3
@@ -90,8 +100,17 @@ jobs:
 
         - name: CREATE PACKAGE VERSION
           shell: pwsh
-          run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
+          run: |
+            $Env:SF_LOG_LEVEL = "fatal"
+            $Env:SFDX_LOG_LEVEL = "fatal"
+            . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
 
+        - name: SAVE TEMP ARTIFACT
+          if: always() 
+          uses: actions/upload-artifact@v2
+          with:
+            name: SF_LOGS_RESULT
+            path: ${{ runner.temp }}
 
   full-package-validation-auth-url:
       
@@ -117,7 +136,10 @@ jobs:
 
       - name: CREATE PACKAGE VERSION
         shell: pwsh
-        run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
+        run: |
+          $Env:SF_LOG_LEVEL = "fatal"
+          $Env:SFDX_LOG_LEVEL = "fatal"
+          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
@@ -153,7 +175,10 @@ jobs:
   
       - name: CREATE PACKAGE VERSION
         shell: pwsh
-        run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
+        run: |
+          $Env:SF_LOG_LEVEL = "fatal"
+          $Env:SFDX_LOG_LEVEL = "fatal"
+          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
@@ -191,8 +216,17 @@ jobs:
       - name: CREATE SCRATCH ORG
         shell: pwsh
         run: |
+          $Env:SF_LOG_LEVEL = "fatal"
+          $Env:SFDX_LOG_LEVEL = "fatal"
           sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel trace
 
+      - name: SAVE TEMP ARTIFACT
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: SF_LOGS_RESULT
+          path: ${{ runner.temp }}
+          
 
   create-scratch-devhub-auth-url:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
@@ -222,4 +256,14 @@ jobs:
       - name: CREATE SCRATCH ORG
         shell: pwsh
         run: |
+          $Env:SF_LOG_LEVEL = "fatal"
+          $Env:SFDX_LOG_LEVEL = "fatal"
           sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel trace
+
+      - name: SAVE TEMP ARTIFACT
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: SF_LOGS_RESULT
+          path: ${{ runner.temp }}
+          
