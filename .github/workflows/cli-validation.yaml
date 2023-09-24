@@ -93,7 +93,7 @@ jobs:
           run: . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
 
 
-  full-package-validation-post-merge-workflow-completion:
+  full-package-validation-auth-url:
       
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
     
@@ -126,7 +126,7 @@ jobs:
           name: SF_LOGS_RESULT
           path: ${{ runner.temp }}
 
-  full-package-validation-post-merge-auth-jwt-devhub:
+  full-package-validation-auth-jwt-devhub:
 
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
     
