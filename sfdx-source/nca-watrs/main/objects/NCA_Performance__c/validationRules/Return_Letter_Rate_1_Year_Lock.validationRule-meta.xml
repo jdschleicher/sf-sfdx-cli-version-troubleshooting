@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Return_Letter_Rate_1_Year_Lock</fullName>
-    <active>true</active>
-    <errorConditionFormula>ISCHANGED( Return_Letter_Rate__c ) &amp;&amp;  Locked__c =TRUE</errorConditionFormula>
-    <errorDisplayField>Return_Letter_Rate__c</errorDisplayField>
-    <errorMessage>Return Letter Rate cannot be changed after a year of closing performance.</errorMessage>
-</ValidationRule>

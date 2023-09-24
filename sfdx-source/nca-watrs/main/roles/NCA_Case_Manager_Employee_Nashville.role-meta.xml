@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Role xmlns="http://soap.sforce.com/2006/04/metadata">
-    <caseAccessLevel>None</caseAccessLevel>
-    <contactAccessLevel>None</contactAccessLevel>
-    <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>NCA Case Manager/Employee - Nashville</name>
-    <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>NCA_Team_Leader_Nashville</parentRole>
-</Role>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Comment_For_a_Cancelled_Status</fullName>
-    <active>true</active>
-    <errorConditionFormula>IF(  AND (ISBLANK(Comments__c), 
- ISPICKVAL(Premium_Pay_Status__c,&apos;Cancelled&apos; )) , true, false)</errorConditionFormula>
-    <errorDisplayField>Comments__c</errorDisplayField>
-    <errorMessage>A Comment is needed when Canceling a Time</errorMessage>
-</ValidationRule>

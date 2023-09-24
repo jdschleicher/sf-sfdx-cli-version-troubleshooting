@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>NCA_comment_on_nonprocessingtime_other</fullName>
-    <active>true</active>
-    <errorConditionFormula>AND(ISPICKVAL( Non_Processing_Time__c ,&quot;Other&quot;), ISBLANK( Comments__c ) )</errorConditionFormula>
-    <errorDisplayField>Non_Processing_Time__c</errorDisplayField>
-    <errorMessage>Must include Additional Comments to complete Time Request of this type.</errorMessage>
-</ValidationRule>

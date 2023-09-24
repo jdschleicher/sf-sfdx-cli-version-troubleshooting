@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>test_checkbox_1_4_23__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>demo checkbox for arm demo</description>
+    <externalId>false</externalId>
+    <inlineHelpText>demo checkbox for arm demo</inlineHelpText>
+    <label>test-checkbox-1-4-23</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

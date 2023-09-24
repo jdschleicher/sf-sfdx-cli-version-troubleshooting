@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : jonathon.schleicher@b3groupinc.com
+  @group             : 
+  @last modified on  : 03-29-2021
+  @last modified by  : jonathon.schleicher@b3groupinc.com
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   03-29-2021   jonathon.schleicher@b3groupinc.com   Initial Version
+-->
+<template>
+    <lightning-card title="Broker" icon-name="standard:contact">
+        <template if:true={property.data}>
+            <lightning-button-icon
+                icon-name="utility:expand_alt"
+                slot="actions"
+                onclick={handlelwc_navigateToRecord}
+            ></lightning-button-icon>
+            <div class="slds-var-m-around_medium">
+                <lightning-record-form
+                    object-api-name="Broker__c"
+                    record-id={brokerId}
+                    fields={brokerFields}
+                    columns="2"
+                ></lightning-record-form>
+            </div>
+        </template>
+        <template if:true={property.error}>
+            <c-error-panel
+                friendly-message="Error retrieving data"
+                errors={property.error}
+            ></c-error-panel>
+        </template>
+    </lightning-card>
+</template>

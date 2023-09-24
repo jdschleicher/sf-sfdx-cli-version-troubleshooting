@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Duplicate_Production_Record</fullName>
-    <active>true</active>
-    <errorConditionFormula>Duplicate_Record__c =TRUE</errorConditionFormula>
-    <errorMessage>An existing Production Record for this Veteran ID and NCA WATRS Case - C Date/MEL - Work Completed Date has already been entered.</errorMessage>
-</ValidationRule>

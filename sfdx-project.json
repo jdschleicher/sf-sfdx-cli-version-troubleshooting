@@ -1,7 +1,7 @@
 {
   "packageDirectories": [
     {
-      "path": "sfdx-source/nca-watrs",
+      "path": "sfdx-source/trouble",
       "package": "dx-cli-testing",
       "versionNumber": "1.0.0.NEXT",
       "default": true,
