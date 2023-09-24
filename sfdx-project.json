@@ -10,7 +10,7 @@
       "versionDescription": "test package for troulbeshooting Salesforce CLI issues"
     }
   ],
-  "sourceApiVersion": "54.0",
+  "sourceApiVersion": "58.0",
   "packageAliases": {
     "dx-cli-testing": "0HoOE000000001J0AQ"
   }
