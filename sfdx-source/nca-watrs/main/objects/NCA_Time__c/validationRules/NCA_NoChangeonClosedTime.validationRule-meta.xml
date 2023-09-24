@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCA_NoChangeonClosedTime</fullName>
+    <active>false</active>
+    <errorConditionFormula>(TEXT(PRIORVALUE( Premium_Pay_Status__c )) = &quot;Cancelled&quot;
+||
+TEXT(PRIORVALUE( Premium_Pay_Status__c )) = &quot;Site Supervisor Approved&quot;
+||
+TEXT(PRIORVALUE( Premium_Pay_Status__c )) = &quot;TL Approved&quot;
+||
+TEXT(PRIORVALUE( Premium_Pay_Status__c )) = &quot;Denied&quot;)
+&amp;&amp;
+Bypass_Automation__c = false</errorConditionFormula>
+    <errorMessage>The record is locked and no fields can be changed.</errorMessage>
+</ValidationRule>

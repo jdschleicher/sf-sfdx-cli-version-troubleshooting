@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dupe_Performance_Found</fullName>
+    <active>true</active>
+    <errorConditionFormula>DupeEnrty__c</errorConditionFormula>
+    <errorMessage>An existing Performance Record for this Employee and Date range has already been entered</errorMessage>
+</ValidationRule>

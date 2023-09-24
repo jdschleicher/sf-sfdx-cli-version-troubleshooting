@@ -1,0 +1,9 @@
+Production request {!NCA_Production__c.Id} has been approved by {!NCA_Production__c.Site_Supervisor_User__c}on {!NCA_Production__c.LastModifiedDate}.
+
+Status: Approved
+Employee Name:{!NCA_Production__c.OwnerFullName}
+Time Request: {!NCA_Production__c.Id}
+Site Supervisor: {!NCA_Production__c.Site_Supervisor_User__c}
+Date: {!NCA_Production__c.LastModifiedDate}
+
+{!NCA_Production__c.Link}

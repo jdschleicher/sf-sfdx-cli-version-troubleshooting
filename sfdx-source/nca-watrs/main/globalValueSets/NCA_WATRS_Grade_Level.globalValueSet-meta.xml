@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>GS-5</fullName>
+        <default>false</default>
+        <label>GS-5</label>
+    </customValue>
+    <customValue>
+        <fullName>GS-6</fullName>
+        <default>false</default>
+        <label>GS-6</label>
+    </customValue>
+    <customValue>
+        <fullName>GS-7</fullName>
+        <default>false</default>
+        <label>GS-7</label>
+    </customValue>
+    <customValue>
+        <fullName>GS-9</fullName>
+        <default>false</default>
+        <label>GS-9</label>
+    </customValue>
+    <customValue>
+        <fullName>GS-11</fullName>
+        <default>false</default>
+        <label>GS-11</label>
+    </customValue>
+    <customValue>
+        <fullName>GS-13</fullName>
+        <default>false</default>
+        <label>GS-13</label>
+    </customValue>
+    <customValue>
+        <fullName>GS-15</fullName>
+        <default>false</default>
+        <label>GS-15</label>
+    </customValue>
+    <description>NCA WATRS Grade Level Picklist</description>
+    <masterLabel>NCA WATRS Grade Level</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

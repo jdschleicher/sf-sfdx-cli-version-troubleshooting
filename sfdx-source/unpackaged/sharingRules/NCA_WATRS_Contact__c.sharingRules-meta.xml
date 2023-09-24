@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>NCA_Contact_Read_Write_Elwood_TL</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA Contact Read/Write - Elwood TL</label>
+        <sharedTo>
+            <role>NCA_Team_Leader_Elwood</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>NCA_Office_Location__c</field>
+            <operation>equals</operation>
+            <value>Elwood,Leavenworth,Nashville</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>NCA_Contact_Read_Write_Leavenworth_TL</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA Contact Read/Write - Leavenworth TL</label>
+        <sharedTo>
+            <role>NCA_Team_Leader_Leavenworth</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>NCA_Office_Location__c</field>
+            <operation>equals</operation>
+            <value>Elwood,Leavenworth,Nashville</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>NCA_Contact_Read_Write_Nashville</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA Contact Read/Write - Nashville</label>
+        <sharedTo>
+            <role>NCA_Team_Leader_Nashville</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>NCA_Office_Location__c</field>
+            <operation>equals</operation>
+            <value>Elwood,Leavenworth,Nashville</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>NCA_WATRS_Contact_Elwood</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA WATRS Contact - Elwood</label>
+        <sharedTo>
+            <group>NCA_Elwood_Share_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>NCA_Office_Location__c</field>
+            <operation>equals</operation>
+            <value>Elwood</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

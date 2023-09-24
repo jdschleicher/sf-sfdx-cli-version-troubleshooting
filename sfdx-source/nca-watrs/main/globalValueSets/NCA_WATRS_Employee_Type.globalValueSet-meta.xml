@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Case Manager</fullName>
+        <default>false</default>
+        <label>Case Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>NCA Employee (Appeals)</fullName>
+        <default>false</default>
+        <label>NCA Employee (Appeals)</label>
+    </customValue>
+    <customValue>
+        <fullName>NCA Employee (800 BIN)</fullName>
+        <default>false</default>
+        <label>NCA Employee (800 BIN)</label>
+    </customValue>
+    <customValue>
+        <fullName>Team Leader</fullName>
+        <default>false</default>
+        <label>Team Leader</label>
+    </customValue>
+    <customValue>
+        <fullName>Site Supervisor</fullName>
+        <default>false</default>
+        <label>Site Supervisor</label>
+    </customValue>
+    <customValue>
+        <fullName>Supervisor of MPS/Appeals</fullName>
+        <default>false</default>
+        <label>Supervisor of MPS/Appeals</label>
+    </customValue>
+    <customValue>
+        <fullName>Director of MPS/Appeals</fullName>
+        <default>false</default>
+        <label>Director of MPS/Appeals</label>
+    </customValue>
+    <description>NCA WATRS Employee Types picklist</description>
+    <masterLabel>NCA WATRS Employee Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

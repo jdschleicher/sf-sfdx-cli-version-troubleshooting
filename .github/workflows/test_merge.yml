@@ -80,11 +80,6 @@ jobs:
             Write-Host  ${{ steps.create_package_version_skip_validation.outputs.packageSubscriberId }}
             . ./ci-cd/package/package_version_install.ps1 -org_to_install_alias $env:SIT_ALIAS -subscriber_package_version_id ${{ needs.skip-validation-create-package-version-job.outputs.packageSubscriberId }}
 
-      - name: DEPLOY PICKLIST FIELDS AS WORKAROUND FOR PICKLIST PACKAGE INSTALL ISSUE
-        shell: pwsh
-        run: |
-          . ./ci-cd/metadata_customizations/picklist/picklist_package_install_workaround.ps1 -org_alias $env:SIT_ALIAS
-
   full-package-validation-post-merge-workflow-completion:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 

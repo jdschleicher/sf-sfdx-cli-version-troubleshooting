@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>NCA_Time__c$Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>NCA_Time__c$End_Date__c</field>
+    </columns>
+    <columns>
+        <field>NCA_Time__c$Leave_Type__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>NCA_Time__c$Total_Hours_Taken__c</field>
+    </columns>
+    <columns>
+        <field>NCA_Time__c$Submission_Date__c</field>
+    </columns>
+    <columns>
+        <field>NCA_Time__c$Site_Supervisor__c</field>
+    </columns>
+    <description>Used on the supervisor dashboard to show leave time record details by chart.</description>
+    <filter>
+        <criteriaItems>
+            <column>NCA_Time__c$RecordType</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NCA_Time__c.Leave_Time</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>NCA_Time__c$Premium_Pay_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Site Supervisor Approved,TL Approved</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>NCA_Time__c$NCA_WATRS_Contact__c.Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>NCA_Time__c$Site_Location__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Supervisor Dashboard Leave Time</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>NCA_Time__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>NCA_Time__c$Approved_Leave_End_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

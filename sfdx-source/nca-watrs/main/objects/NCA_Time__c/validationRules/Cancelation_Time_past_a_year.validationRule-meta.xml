@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancelation_Time_past_a_year</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( NOT( ISBLANK(  Approval_Date__c  ) ),  ISPICKVAL(Premium_Pay_Status__c,&apos;Cancelled&apos; ),   
+ DATE( YEAR(Approval_Date__c) + 1,
+ MONTH(Approval_Date__c) ,
+ DAY(Approval_Date__c) )  &lt; TODAY() )</errorConditionFormula>
+    <errorMessage>A Time Record can not be cancelled a year pass the Approval Date.</errorMessage>
+</ValidationRule>

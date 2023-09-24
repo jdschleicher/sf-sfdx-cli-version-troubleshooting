@@ -1,0 +1,10 @@
+Production request {!NCA_Production__c.Name} submitted by {!NCA_Production__c.Employee__c} is pending approval by {!NCA_Production__c.Site_Supervisor_User__c}.
+
+Status: {!NCA_Production__c.Status__c}
+Employee Name: {!NCA_Production__c.Employee__c}
+Production Request:  Request:  {!NCA_Production__c.Name}
+
+Site Supervisor: {!NCA_Production__c.Site_Supervisor_User__c}
+Date: {!NCA_Production__c.CreatedDate}
+
+{!NCA_Production__c.Link}

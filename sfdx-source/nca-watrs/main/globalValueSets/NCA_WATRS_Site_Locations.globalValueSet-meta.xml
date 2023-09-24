@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Elwood</fullName>
+        <default>false</default>
+        <label>Elwood</label>
+    </customValue>
+    <customValue>
+        <fullName>Leavenworth</fullName>
+        <default>false</default>
+        <label>Leavenworth</label>
+    </customValue>
+    <customValue>
+        <fullName>Nashville</fullName>
+        <default>false</default>
+        <label>Nashville</label>
+    </customValue>
+    <customValue>
+        <fullName>PMC</fullName>
+        <default>false</default>
+        <label>PMC</label>
+    </customValue>
+    <customValue>
+        <fullName>FNOD</fullName>
+        <default>false</default>
+        <label>FNOD</label>
+    </customValue>
+    <customValue>
+        <fullName>Appeals</fullName>
+        <default>false</default>
+        <label>Appeals</label>
+    </customValue>
+    <description>NCA WATRS Site Location Picklist</description>
+    <masterLabel>NCA WATRS Site Locations</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

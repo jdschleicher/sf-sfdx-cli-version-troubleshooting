@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Production_Rating__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Average_Production_Rate__c=0,&quot;N/A&quot;,
+IF( Average_Production_Rate__c  &gt;=NCA_Performance_Standard__r.Production_Exceptional__c  ,&quot;Exceptional&quot;,
+IF( Average_Production_Rate__c   &lt;=NCA_Performance_Standard__r.Production_Unsuccessful__c ,&quot;Unsuccessful&quot; ,
+&quot;Successful&quot;
+)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Production Rating</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

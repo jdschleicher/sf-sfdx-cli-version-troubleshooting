@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCA_WATRS_Start_date_is_before_End_Date</fullName>
+    <active>true</active>
+    <description>When I &apos;Save&apos; a time request, the system will automatically validate the request in order to ensure that the End Time selected occurs after the Start Time selected.</description>
+    <errorConditionFormula>( End_Date__c &lt; Start_Date__c )</errorConditionFormula>
+    <errorMessage>Cannot enter negative time. End Time must be after the Start Time</errorMessage>
+</ValidationRule>

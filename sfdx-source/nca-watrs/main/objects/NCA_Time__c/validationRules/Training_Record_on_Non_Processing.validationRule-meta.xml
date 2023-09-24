@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Training_Record_on_Non_Processing</fullName>
+    <active>true</active>
+    <errorConditionFormula>RecordType.DeveloperName ==&apos;Non_Processing_Time&apos; &amp;&amp;
+ ISBLANK(  Training_Certificate_Number__c ) &amp;&amp;
+ISPICKVAL( Non_Processing_Time__c ,&quot;Training (Ability to upload Training Certificate)&quot;)</errorConditionFormula>
+    <errorDisplayField>Training_Certificate_Number__c</errorDisplayField>
+    <errorMessage>Must attach Training Certificate to complete Time Request of this type</errorMessage>
+</ValidationRule>

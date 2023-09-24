@@ -1,0 +1,9 @@
+Time request  submitted by {!NCA_Time__c.Employee__c} is pending approval by {!NCA_Time__c.Site_Supervisor__c}.
+  
+Status: Pending
+Employee Name: {!NCA_Time__c.Employee__c}
+Time Request:{!NCA_Time__c.Name}
+Site Supervisor: {!NCA_Time__c.Site_Supervisor__c}.
+Date: {!NCA_Time__c.CreatedDate}
+
+{!NCA_Time__c.Link}

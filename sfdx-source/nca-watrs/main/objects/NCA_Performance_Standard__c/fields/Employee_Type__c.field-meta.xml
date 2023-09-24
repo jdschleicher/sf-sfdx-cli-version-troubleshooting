@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Employee_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Employee Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Case Manager</fullName>
+                <default>false</default>
+                <label>Case Manager</label>
+            </value>
+            <value>
+                <fullName>NCA Employee (Appeals)</fullName>
+                <default>false</default>
+                <label>NCA Employee (Appeals)</label>
+            </value>
+            <value>
+                <fullName>NCA Employee (800 BIN)</fullName>
+                <default>false</default>
+                <label>NCA Employee (800 BIN)</label>
+            </value>
+            <value>
+                <fullName>Team Leader</fullName>
+                <default>false</default>
+                <label>Team Leader</label>
+            </value>
+            <value>
+                <fullName>Site Supervisor</fullName>
+                <default>false</default>
+                <label>Site Supervisor</label>
+            </value>
+            <value>
+                <fullName>Supervisor of MPS/Appeals</fullName>
+                <default>false</default>
+                <label>Supervisor of MPS/Appeals</label>
+            </value>
+            <value>
+                <fullName>Director of MPS/Appeals</fullName>
+                <default>false</default>
+                <label>Director of MPS/Appeals</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

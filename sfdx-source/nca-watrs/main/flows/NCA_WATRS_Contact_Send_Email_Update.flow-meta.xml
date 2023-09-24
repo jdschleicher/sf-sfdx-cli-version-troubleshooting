@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>recordUpdateEmail</name>
+        <label>recordUpdateEmail</label>
+        <locationX>176</locationX>
+        <locationY>516</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>emailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>vRecipient</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Your profile has been updated.</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>addRecipients</name>
+        <label>addRecipients</label>
+        <locationX>176</locationX>
+        <locationY>396</locationY>
+        <assignmentItems>
+            <assignToReference>vRecipient</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.NCA_WATRS_Related_User__r.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>recordUpdateEmail</targetReference>
+        </connector>
+    </assignments>
+    <formulas>
+        <name>emailBody</name>
+        <dataType>String</dataType>
+        <expression>&quot;Your contact has been updated, please review details below:&quot;
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Title: &quot; +TEXT( {!$Record.NCA_WATRS_Employee_Type__c})
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Level: &quot; + TEXT({!$Record.NCA_WATRS_Employee_Grade_Level__c})
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Team Lead: &quot; + {!$Record.NCA_WATRS_Team_Leader__r.Name}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Site Supervisor: &quot; + {!$Record.NCA_WATRS_Site_Supervisor__r.Name}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Director: &quot; + {!$Record.NCA_WATRS_Director__r.Name}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Performance standard: &quot; + {!$Record.NCA_WATRS_Performance_Standard__r.Name}</expression>
+    </formulas>
+    <interviewLabel>NCA WATRS Contact: Send Email Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>NCA WATRS Contact: Send Email Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>getContacts</name>
+        <label>getContacts</label>
+        <locationX>176</locationX>
+        <locationY>276</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>addRecipients</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Send_Update_Email__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>NCA_WATRS_Contact__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>getContacts</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Send_Update_Email__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>NCA_WATRS_Contact__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2022-06-14</startDate>
+            <startTime>09:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>vRecipient</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

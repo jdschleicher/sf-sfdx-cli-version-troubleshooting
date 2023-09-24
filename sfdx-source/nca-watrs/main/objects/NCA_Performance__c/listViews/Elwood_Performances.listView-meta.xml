@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Elwood_Performances</fullName>
+    <columns>NAME</columns>
+    <columns>Site_Location__c</columns>
+    <columns>Employee_Name__c</columns>
+    <columns>NCA_Performance_Standard__c</columns>
+    <columns>Return_Letter_Rating__c</columns>
+    <columns>Quality_Rating__c</columns>
+    <columns>Timeliness_Rating__c</columns>
+    <columns>Production_Rating__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Site_Location__c</field>
+        <operation>equals</operation>
+        <value>Elwood</value>
+    </filters>
+    <label>Elwood Performances</label>
+    <sharedTo>
+        <group>NCA_Elwood_Share_Read_Write</group>
+    </sharedTo>
+</ListView>

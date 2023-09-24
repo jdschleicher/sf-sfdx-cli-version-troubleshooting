@@ -1,0 +1,9 @@
+Time request {!NCA_Time__c.Id} has been  approved by {!NCA_Time__c.Site_Supervisor__c} on {!NCA_Time__c.Premium_Pay_Submission_Date__c}.
+
+Status:  {!NCA_Time__c.Premium_Pay_Status__c}
+Employee Name: {!NCA_Time__c.Employee__c}
+Time Request:  {!NCA_Time__c.Id}
+Site Supervisor: {!NCA_Time__c.Site_Supervisor__c}
+Date: {!NCA_Time__c.Premium_Pay_Submission_Date__c}
+
+{!NCA_Time__c.Link}

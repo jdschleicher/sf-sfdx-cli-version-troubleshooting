@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_Comment_For_Other_NonprocessingTime</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(RecordType.DeveloperName == &apos;Non-Processing Time&apos;  , ISPICKVAL( Leave_Type__c , &quot;Other&quot;) , 
+ ISBLANK( Comments__c )    )</errorConditionFormula>
+    <errorDisplayField>Comments__c</errorDisplayField>
+    <errorMessage>Must include Additional Comments to complete Time Request of this type.</errorMessage>
+</ValidationRule>

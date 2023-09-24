@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>NCA_Production_Elwood_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA Production Elwood Read/Write</label>
+        <sharedTo>
+            <group>NCA_Elwood_Share_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Site_Location__c</field>
+            <operation>equals</operation>
+            <value>Elwood</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>NCA_Production_Leavenworth_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA Production Leavenworth Read/Write</label>
+        <sharedTo>
+            <group>NCA_Leavenworth_Share_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Site_Location__c</field>
+            <operation>equals</operation>
+            <value>Leavenworth</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>NCA_Production_Nashville_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>NCA Production Nashville Read/Write</label>
+        <sharedTo>
+            <group>NCA_Nashville_Share_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Site_Location__c</field>
+            <operation>equals</operation>
+            <value>Nashville</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

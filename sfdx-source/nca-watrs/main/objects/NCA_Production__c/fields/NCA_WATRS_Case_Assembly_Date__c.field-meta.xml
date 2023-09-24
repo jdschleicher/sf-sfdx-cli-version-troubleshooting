@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NCA_WATRS_Case_Assembly_Date__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Date Format: mm/dd/yyyy</inlineHelpText>
+    <label>NCA WATRS Case - Assembly Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

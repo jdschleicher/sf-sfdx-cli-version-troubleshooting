@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>employee_alert</name>
+        <label>employee-alert</label>
+        <locationX>264</locationX>
+        <locationY>756</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>manager_alert</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>vUnderperformanceAlert</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>vRecipients</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>vEmployeeTitle</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>manager_alert</name>
+        <label>manager-alert</label>
+        <locationX>264</locationX>
+        <locationY>876</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>team_leader_alert</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>vSupervisorAlert</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>vSupervisor</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>vSupervisorTitle</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>team_leader_alert</name>
+        <label>team-leader-alert</label>
+        <locationX>264</locationX>
+        <locationY>996</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>clearRecipients</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>vSupervisorAlert</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>vTeamLeaders</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>vSupervisorTitle</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <assignments>
+        <name>assignRecipients</name>
+        <label>assignRecipients</label>
+        <locationX>264</locationX>
+        <locationY>636</locationY>
+        <assignmentItems>
+            <assignToReference>vRecipients</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>loopPerformances.Employee_User_Record__r.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vSupervisor</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>loopPerformances.Site_Supervisor__r.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vTeamLeaders</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>loopPerformances.Team_Leader__r.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>employee_alert</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>clearRecipients</name>
+        <label>clearRecipients</label>
+        <locationX>264</locationX>
+        <locationY>1116</locationY>
+        <assignmentItems>
+            <assignToReference>vRecipients</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vSupervisor</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vTeamLeaders</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <targetReference>loopPerformances</targetReference>
+        </connector>
+    </assignments>
+    <constants>
+        <name>vEmployeeTitle</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>&quot;Performance Alert&quot;</stringValue>
+        </value>
+    </constants>
+    <formulas>
+        <name>vSupervisorAlert</name>
+        <dataType>String</dataType>
+        <expression>{!loopPerformances.Employee__r.Name} + &quot; has been flagged for underperformance. Please review the categories for overall performance:&quot;
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Production: &quot; + {!$Record.Production_Rating__c} 
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Quality: &quot; + {!$Record.Quality_Rating__c}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Return Letter: &quot; + {!$Record.Return_Letter_Rating__c}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Timeliness: &quot; + {!$Record.Timeliness_Rating__c}</expression>
+    </formulas>
+    <formulas>
+        <name>vSupervisorTitle</name>
+        <dataType>String</dataType>
+        <expression>{!loopPerformances.Employee_Name__c} + &quot; Underperformance Alert&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>vToday</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>vUnderperformanceAlert</name>
+        <dataType>String</dataType>
+        <expression>&quot;Your performance has been flagged, please review the categories for your overall performance:&quot;
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Production: &quot; + {!$Record.Production_Rating__c} 
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Quality: &quot; + {!$Record.Quality_Rating__c}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Return Letter: &quot; + {!$Record.Return_Letter_Rating__c}
+&amp;
+SUBSTITUTE ({!$Label.NewLine}, &quot;-&quot;,&quot;&quot;)
+&amp;
+&quot;Timeliness: &quot; + {!$Record.Timeliness_Rating__c}</expression>
+    </formulas>
+    <interviewLabel>NCA Performance: Underperformance Alerts {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>NCA WATRS Performance: Underperformance Alerts</label>
+    <loops>
+        <name>loopPerformances</name>
+        <label>loopPerformances</label>
+        <locationX>176</locationX>
+        <locationY>516</locationY>
+        <collectionReference>getPerformances</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>assignRecipients</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>getNotificatonAlert</name>
+        <label>getNotificatonAlert</label>
+        <locationX>176</locationX>
+        <locationY>276</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>getPerformances</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Performance_Underperformance_Alert</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>CustomNotificationType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>getPerformances</name>
+        <label>getPerformances</label>
+        <locationX>176</locationX>
+        <locationY>396</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>loopPerformances</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3 OR 4 OR 5)</filterLogic>
+        <filters>
+            <field>Monthly_Alert_Date__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vToday</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Production_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unsuccessful</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Quality_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unsuccessful</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Return_Letter_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unsuccessful</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Timeliness_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Unsuccessful</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>NCA_Performance__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>getNotificatonAlert</targetReference>
+        </connector>
+        <object>NCA_Performance__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2022-08-15</startDate>
+            <startTime>06:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <name>vRecipients</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>vSupervisor</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>vTeamLeaders</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>
