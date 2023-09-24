@@ -67,7 +67,7 @@ jobs:
           run: |
             $Env:SF_LOG_LEVEL = "fatal"
             $Env:SFDX_LOG_LEVEL = "fatal"
-            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
+            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test" 
 
         - name: SAVE TEMP ARTIFACT
           if: always() 
@@ -103,7 +103,7 @@ jobs:
           run: |
             $Env:SF_LOG_LEVEL = "fatal"
             $Env:SFDX_LOG_LEVEL = "fatal"
-            . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
+            . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
 
         - name: SAVE TEMP ARTIFACT
           if: always() 
@@ -139,7 +139,7 @@ jobs:
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
-          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
+          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
@@ -178,7 +178,7 @@ jobs:
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
-          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
+          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
@@ -218,7 +218,7 @@ jobs:
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
-          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel trace
+          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --verbose --dev-debug --preserve --json
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
@@ -258,7 +258,7 @@ jobs:
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
-          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel trace
+          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --verbose --dev-debug --preserve --json
 
       - name: SAVE TEMP ARTIFACT
         if: always() 
