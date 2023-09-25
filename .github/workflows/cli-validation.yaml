@@ -255,7 +255,7 @@ jobs:
           . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
 
       - name: CREATE SCRATCH ORG
-        shell: pwsh
+        shell: pwsh 
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
           $Env:SFDX_LOG_LEVEL = "fatal"
