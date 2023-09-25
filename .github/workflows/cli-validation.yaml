@@ -40,7 +40,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: varos_sfdx_create_scratch
-            path: ${{ runner.temp }}
+            path: D:\a\sf-sfdx-cli-version-troubleshooting
 
   SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
     
@@ -74,7 +74,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ubuntu_sf_create_scratch_ps1
-            path: ${{ runner.temp }}
+            path: D:\a\sf-sfdx-cli-version-troubleshooting
             
   Package_Version_Create:
 
@@ -110,7 +110,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ubuntu_package_version_create
-            path: ${{ runner.temp }}
+            path: D:\a\sf-sfdx-cli-version-troubleshooting
 
   full-package-validation-auth-url:
       
@@ -146,7 +146,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: varos_create_package_versiondevhub_auth_url
-          path: ${{ runner.temp }}
+          path: D:\a\sf-sfdx-cli-version-troubleshooting
 
   full-package-validation-auth-jwt-devhub:
 
@@ -180,12 +180,12 @@ jobs:
           $Env:SFDX_LOG_LEVEL = "fatal"
           . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
 
-      - name: SAVE TEMP ARTIFACT
+      - name: SAVE TEMP ARTIFACT CREATE PACKAGE VERSION
         if: always() 
         uses: actions/upload-artifact@v2
         with:
           name: varos_create_package_version_jwt
-          path: ${{ runner.temp }}
+          path: D:\a\sf-sfdx-cli-version-troubleshooting
         
          
   create-scratch-jwt-auth-devhub:
@@ -220,12 +220,12 @@ jobs:
           $Env:SFDX_LOG_LEVEL = "fatal"
           sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
 
-      - name: SAVE TEMP ARTIFACT
+      - name: SAVE TEMP ARTIFACT CREATE SCRATCH
         if: always() 
         uses: actions/upload-artifact@v2
         with:
           name: varos_varcli_create_scratch_auth_devhub_jwt
-          path: D:\a\
+          path: D:\a\sf-sfdx-cli-version-troubleshooting
           
 
   create-scratch-devhub-auth-url:
