@@ -33,6 +33,7 @@ jobs:
           run: |
             $Env:SF_LOG_LEVEL = "fatal"
             $Env:SFDX_LOG_LEVEL = "fatal"
+            Write-Host "${{ runner.home }}"
             . ./ci_system/sfdx/sfdx_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
     
         - name: SAVE TEMP ARTIFACT
@@ -41,6 +42,13 @@ jobs:
           with:
             name: varos_sfdx_create_scratch
             path: D:\a\sf-sfdx-cli-version-troubleshooting
+
+        - name: SAVE TEMP ARTIFACT HOME DRIVE
+          if: always() 
+          uses: actions/upload-artifact@v2
+          with:
+            name: varos_sfdx_create_scratch_runner_home
+            path: ${{ runner.home }}
 
   SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
     
