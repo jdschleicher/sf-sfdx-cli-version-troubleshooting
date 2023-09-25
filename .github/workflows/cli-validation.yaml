@@ -41,14 +41,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: varos_sfdx_create_scratch
-            path: D:\a\sf-sfdx-cli-version-troubleshooting
-
-        - name: SAVE TEMP ARTIFACT HOME DRIVE
-          if: always() 
-          uses: actions/upload-artifact@v2
-          with:
-            name: varos_sfdx_create_scratch_runner_home
-            path: ${{ runner.home }}
+            path: C:\Users\runneradmin\AppData\Local\sf
 
   UBUNTU_SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
     
@@ -82,7 +75,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ubuntu_sf_create_scratch_ps1
-            path: D:\a\sf-sfdx-cli-version-troubleshooting
+            path: C:\Users\runneradmin\AppData\Local\sf
             
   UBUNTU_Package_Version_Create:
 
@@ -118,7 +111,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ubuntu_package_version_create
-            path: D:\a\sf-sfdx-cli-version-troubleshooting
+            path: C:\Users\runneradmin\AppData\Local\sf
 
   DYNAMIC_OS_full-package-validation-auth-url:
       
@@ -154,7 +147,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: varos_create_package_versiondevhub_auth_url
-          path: D:\a\sf-sfdx-cli-version-troubleshooting
+          path: C:\Users\runneradmin\AppData\Local\sf
 
   DYNAMIC_OS_full-package-validation-auth-jwt-devhub:
 
@@ -193,7 +186,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: varos_create_package_version_jwt
-          path: D:\a\sf-sfdx-cli-version-troubleshooting
+          path: C:\Users\runneradmin\AppData\Local\sf
               
   DYNAMIC_OS_create-scratch-jwt-auth-devhub:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
@@ -227,20 +220,6 @@ jobs:
           $Env:SFDX_LOG_LEVEL = "fatal"           
           Write-Host "runner drive: ${{ runner.home }}"
           sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
-
-      - name: SAVE TEMP ARTIFACT CREATE SCRATCH
-        if: always() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: varos_varcli_create_scratch_auth_devhub_jwt
-          path: D:\a\sf-sfdx-cli-version-troubleshooting
-         
-      - name: SAVE TEMP ARTIFACT CREATE SCRATCH HOME PATH
-        if: always() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: varos_varcli_create_scratch_auth_devhub_jwt_HOME
-          path: ${{ runner.home }}
 
       - name: SAVE TEMP ARTIFACT CREATE SCRATCH USER RUNNER ADMIN
         if: always() 
@@ -287,5 +266,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: varos_varcli_create_scratch_auth_devhub_authurl
-          path: ${{ runner.temp }}
+          path: C:\Users\runneradmin\AppData\Local\sf
           
