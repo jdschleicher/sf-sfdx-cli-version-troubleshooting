@@ -224,7 +224,8 @@ jobs:
         shell: pwsh
         run: |
           $Env:SF_LOG_LEVEL = "fatal"
-          $Env:SFDX_LOG_LEVEL = "fatal"
+          $Env:SFDX_LOG_LEVEL = "fatal"           
+          Write-Host "runner drive: ${{ runner.home }}"
           sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
 
       - name: SAVE TEMP ARTIFACT CREATE SCRATCH
@@ -233,6 +234,21 @@ jobs:
         with:
           name: varos_varcli_create_scratch_auth_devhub_jwt
           path: D:\a\sf-sfdx-cli-version-troubleshooting
+         
+      - name: SAVE TEMP ARTIFACT CREATE SCRATCH HOME PATH
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: varos_varcli_create_scratch_auth_devhub_jwt_HOME
+          path: ${{ runner.home }}
+
+      - name: SAVE TEMP ARTIFACT CREATE SCRATCH USER RUNNER ADMIN
+        if: always() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: varos_varcli_create_scratch_auth_devhub_jwt_USER_ADMIN
+          path: C:\Users\runneradmin\AppData\Local\sf
+
           
   DYNAMIC_OS_create-scratch-devhub-auth-url:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
