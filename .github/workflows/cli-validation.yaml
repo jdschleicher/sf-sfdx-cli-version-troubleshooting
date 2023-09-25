@@ -10,7 +10,7 @@ env:
 
 jobs:
  
-  Install_SFDX_CLI_and_Create_Scratch_Org:
+  DYNAMIC_OS_Install_SFDX_CLI_and_Create_Scratch_Org:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 
     steps:
@@ -50,7 +50,7 @@ jobs:
             name: varos_sfdx_create_scratch_runner_home
             path: ${{ runner.home }}
 
-  SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
+  UBUNTU_SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
     
     runs-on: ubuntu-latest
 
@@ -84,7 +84,7 @@ jobs:
             name: ubuntu_sf_create_scratch_ps1
             path: D:\a\sf-sfdx-cli-version-troubleshooting
             
-  Package_Version_Create:
+  UBUNTU_Package_Version_Create:
 
     runs-on: ubuntu-latest
 
@@ -120,7 +120,7 @@ jobs:
             name: ubuntu_package_version_create
             path: D:\a\sf-sfdx-cli-version-troubleshooting
 
-  full-package-validation-auth-url:
+  DYNAMIC_OS_full-package-validation-auth-url:
       
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
     
@@ -156,7 +156,7 @@ jobs:
           name: varos_create_package_versiondevhub_auth_url
           path: D:\a\sf-sfdx-cli-version-troubleshooting
 
-  full-package-validation-auth-jwt-devhub:
+  DYNAMIC_OS_full-package-validation-auth-jwt-devhub:
 
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
     
@@ -194,9 +194,8 @@ jobs:
         with:
           name: varos_create_package_version_jwt
           path: D:\a\sf-sfdx-cli-version-troubleshooting
-        
-         
-  create-scratch-jwt-auth-devhub:
+              
+  DYNAMIC_OS_create-scratch-jwt-auth-devhub:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 
     env:
@@ -235,8 +234,7 @@ jobs:
           name: varos_varcli_create_scratch_auth_devhub_jwt
           path: D:\a\sf-sfdx-cli-version-troubleshooting
           
-
-  create-scratch-devhub-auth-url:
+  DYNAMIC_OS_create-scratch-devhub-auth-url:
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
 
     env:
