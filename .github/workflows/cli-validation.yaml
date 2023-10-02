@@ -10,40 +10,7 @@ env:
 
 jobs:
  
-  DYNAMIC_OS_Install_SFDX_CLI_and_Create_Scratch_Org:
-    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
-
-    steps:
-        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-          uses: actions/checkout@v3
-
-        - name: INSTALL SFDX CLI
-          shell: pwsh
-          run: |
-            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
-
-        - name: AUTHENTICATE DEVHUB AUTH URL
-          env:
-            DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
-          shell: pwsh
-          run: . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
-    
-        - name: CREATE SCRATCH ORG
-          shell: pwsh
-          run: |
-            $Env:SF_LOG_LEVEL = "fatal"
-            $Env:SFDX_LOG_LEVEL = "fatal"
-            Write-Host "${{ runner.home }}"
-            . ./ci_system/sfdx/sfdx_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test"
-    
-        - name: SAVE TEMP ARTIFACT
-          if: always() 
-          uses: actions/upload-artifact@v2
-          with:
-            name: varos_sfdx_create_scratch
-            path: C:\Users\runneradmin\AppData\Local\sf
-
-  UBUNTU_SF_COMMAND_Install_SFDX_CLI_and_Create_Scratch_Org:
+  UBUNTU_npminstall-sfdx-cli_auth-url_Create-Scratch:
     
     runs-on: ubuntu-latest
 
@@ -67,89 +34,9 @@ jobs:
           shell: pwsh
           run: |
             $Env:SF_LOG_LEVEL = "fatal"
-            $Env:SFDX_LOG_LEVEL = "fatal"
             . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test" 
 
-        - name: SAVE TEMP ARTIFACT
-          if: always() 
-          uses: actions/upload-artifact@v2
-          with:
-            name: ubuntu_sf_create_scratch_ps1
-            path: C:\Users\runneradmin\AppData\Local\sf
             
-  UBUNTU_Package_Version_Create:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-          uses: actions/checkout@v3
-
-        - name: INSTALL SFDX CLI
-          shell: pwsh
-          run: |
-            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
-
-        - name: AUTHENTICATE DEVHUB AUTH URL
-          env:
-              DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
-          shell: pwsh
-          run: |
-            Write-Host "runner context :${{ runner.temp }} "
-            . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
-
-        - name: CREATE PACKAGE VERSION
-          shell: pwsh
-          run: |
-            $Env:SF_LOG_LEVEL = "fatal"
-            $Env:SFDX_LOG_LEVEL = "fatal"
-            . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing" 
-
-        - name: SAVE TEMP ARTIFACT
-          if: always() 
-          uses: actions/upload-artifact@v2
-          with:
-            name: ubuntu_package_version_create
-            path: C:\Users\runneradmin\AppData\Local\sf
-
-  DYNAMIC_OS_full-package-validation-auth-url:
-      
-    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
-    
-    steps:
-
-      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-        uses: actions/checkout@v3
-
-      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
-        shell: pwsh
-        run: |
-          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
-        
-      - name: AUTHENTICATE DEVHUB AUTH URL
-        env:
-            DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
-        shell: pwsh
-        run: |
-          Write-Host "runner context :${{ runner.temp }} "
-          . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
-
-      - name: CREATE PACKAGE VERSION
-        shell: pwsh
-        run: |
-          $Env:SF_LOG_LEVEL = "fatal"
-          $Env:SFDX_LOG_LEVEL = "fatal"
-          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
-
-      - name: SAVE TEMP ARTIFACT
-        if: always() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: varos_create_package_versiondevhub_auth_url
-          path: C:\Users\runneradmin\AppData\Local\sf
-
-  DYNAMIC_OS_full-package-validation-auth-jwt-devhub:
 
     runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
     
@@ -187,84 +74,28 @@ jobs:
         with:
           name: varos_create_package_version_jwt
           path: C:\Users\runneradmin\AppData\Local\sf
-              
-  DYNAMIC_OS_create-scratch-jwt-auth-devhub:
-    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
+     
+  UBUNTU_npminstall-sfdx-cli_auth-jwt_Create-Scratch:
 
-    env:
-      DEVHUB_ALIAS:                 "devhub"
-      SF_DEVHUB_CLIENTID:           ${{ secrets.SF_DEVHUB_CLIENTID }}
-      SF_DEVHUB_KEY_BASE64:         ${{ secrets.SF_DEVHUB_KEY_BASE64 }}
-      SF_DEVHUB_ORG_URL:            ${{ secrets.SF_DEVHUB_ORG_URL }}
-      DEVHUB_ORG_USERNAME:          ${{ secrets.DEVHUB_ORG_USERNAME }}
-      SCRATCH_ORG_ALIAS:            "ci-scratch-org"
+    runs-on: ubuntu-latest
 
     steps:
 
-      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-        uses: actions/checkout@v3
+        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+          uses: actions/checkout@v3
 
-      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
-        shell: pwsh
-        run: |
-          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
-        
-      - name: AUTHENTICATE DEVHUB PWSH JWT
-        shell: pwsh
-        run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
+        - name: INSTALL SFDX CLI
+          shell: pwsh
+          run: |
+            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
 
-      - name: CREATE SCRATCH ORG
-        shell: pwsh
-        run: |
-          $Env:SF_LOG_LEVEL = "fatal"
-          $Env:SFDX_LOG_LEVEL = "fatal"           
-          Write-Host "runner drive: ${{ runner.home }}"
-          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
+        - name: AUTHENTICATE DEVHUB PWSH JWT
+          shell: pwsh
+          run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
 
-      - name: SAVE TEMP ARTIFACT CREATE SCRATCH USER RUNNER ADMIN
-        if: always() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: varos_varcli_create_scratch_auth_devhub_jwt_USER_ADMIN
-          path: C:\Users\runneradmin\AppData\Local\sf
-
-          
-  DYNAMIC_OS_create-scratch-devhub-auth-url:
-    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
-
-    env:
-      DEVHUB_ALIAS:                 "devhub"
-      SCRATCH_ORG_ALIAS:            "ci-scratch-org"
-
-    steps:
-
-      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-        uses: actions/checkout@v3
-
-      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
-        shell: pwsh
-        run: |
-          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
-        
-      - name: AUTHENTICATE DEVHUB AUTH URL
-        env:
-            DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
-        shell: pwsh
-        run: |
-          Write-Host "runner context :${{ runner.temp }} "
-          . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
-
-      - name: CREATE SCRATCH ORG
-        shell: pwsh 
-        run: |
-          $Env:SF_LOG_LEVEL = "fatal"
-          $Env:SFDX_LOG_LEVEL = "fatal"
-          sfdx force:org:create --targetdevhubusername devhub --definitionfile config/project-scratch-def.json --setalias $env:SCRATCH_ORG_ALIAS --durationdays 1 --setdefaultusername --loglevel fatal --dev-debug --json
-
-      - name: SAVE TEMP ARTIFACT
-        if: always() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: varos_varcli_create_scratch_auth_devhub_authurl
-          path: C:\Users\runneradmin\AppData\Local\sf
-          
+        - name: CREATE SCRATCH ORG
+          shell: pwsh
+          run: |
+            $Env:SF_LOG_LEVEL = "fatal"
+            $Env:SFDX_LOG_LEVEL = "fatal"
+            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test" 
