@@ -20,6 +20,6 @@ Write-Host $auth_result_json
 $auth_result = $auth_result_json| ConvertFrom-Json
 $auth_result.status
 
-Remove-Item -Force $path_to_key_file
+# Remove-Item -Force $path_to_key_file
 
           
