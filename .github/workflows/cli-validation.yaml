@@ -36,44 +36,7 @@ jobs:
             $Env:SF_LOG_LEVEL = "fatal"
             . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test" 
 
-            
-
-    runs-on: ${{ vars.GH_ACTIONS_OPERATING_SYSTEM }}
-    
-    env:
-      DEVHUB_ALIAS:                 "devhub"
-      SF_DEVHUB_CLIENTID:           ${{ secrets.SF_DEVHUB_CLIENTID }}
-      SF_DEVHUB_KEY_BASE64:         ${{ secrets.SF_DEVHUB_KEY_BASE64 }}
-      SF_DEVHUB_ORG_URL:            ${{ secrets.SF_DEVHUB_ORG_URL }}
-      DEVHUB_ORG_USERNAME:          ${{ secrets.DEVHUB_ORG_USERNAME }}
-      
-    steps:
-
-      - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-        uses: actions/checkout@v3
-
-      - name: INSTALL SALESFORCE CLI TAR AND SET SALESFORCE CLI ALIASES
-        shell: pwsh
-        run: |
-          . ./ci-cd/install/install_tar_windows_salesforce_cli.ps1
-        
-      - name: AUTHENTICATE DEVHUB PWSH JWT
-        shell: pwsh
-        run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
-  
-      - name: CREATE PACKAGE VERSION
-        shell: pwsh
-        run: |
-          $Env:SF_LOG_LEVEL = "fatal"
-          $Env:SFDX_LOG_LEVEL = "fatal"
-          . ./ci_system/sfdx/package/sf_create_package_version.ps1 -devhub_alias $env:DEVHUB_ALIAS -package_alias "dx-cli-testing"
-
-      - name: SAVE TEMP ARTIFACT CREATE PACKAGE VERSION
-        if: always() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: varos_create_package_version_jwt
-          path: C:\Users\runneradmin\AppData\Local\sf
+          
      
   UBUNTU_npminstall-sfdx-cli_auth-jwt_Create-Scratch:
 
