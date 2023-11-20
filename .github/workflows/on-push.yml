@@ -22,6 +22,8 @@ jobs:
 
     outputs:
       subscriber_package_version_id: ${{ steps.create_package_version.outputs.subscriber_package_version_id }}
+      second_subscriber_package_version_id: ${{ steps.second_create_package_version.outputs.second_subscriber_package_version_id }}
+
 
     steps:
 
@@ -63,5 +65,32 @@ jobs:
               echo "$subscriber_package_version_id"
               . .\ci_system\sfdx\install_package_version_to_org.ps1 -org_to_install_alias $env:SCRATCH_ALIAS -subscriber_package_version_id $subscriber_package_version_id
 
+        - name: UPDATE TITLE FIELD
+          shell: pwsh
+          run: |
+              $title_field = Get-Content -Raw .\sfdx-source\trouble\objects\Broker__c\fields\Title__c.field-meta.xml
+              $upper_limit_random_number = 30 
+              $random_number = Get-Random -Minimum 1 -Maximum $upper_limit_random_number
+              $title_field -replace "<length>30</length>", "<length>$random_number</length>"
+              $title_field = $title_field -replace "<length>30</length>", "<length>22</length>"
+              Set-Content .\sfdx-source\trouble\objects\Broker__c\fields\Title__c.field-meta.xml -Value $title_field
 
-       
+        - name: CREATE SECOND SKIP VALIDATION PACKAGE VERSION
+          id: second_create_package_version
+          shell: pwsh
+          run: |
+            $package_name = $env:PACKAGE_NAME
+            $subscriber_package_version_id = $( . .\ci_system\sfdx\package\simple_package_version_creation.ps1 -validation_type "skip" `
+                                                              -devhub_alias $env:DEVHUB_ALIAS `
+                                                              -package_name $package_name )
+            "second_subscriber_package_version_id=$second_subscriber_package_version_id" >> $env:GITHUB_OUTPUT
+
+        - name: SECOND PACKAGE INSTALL TO SCRATCH ORG
+          shell: pwsh
+          run: |
+              echo "This is the suscriber id:"
+              $second_subscriber_package_version_id = '${{ steps.second_create_package_version.outputs.second_subscriber_package_version_id }}'
+              echo "$subscriber_package_version_id"
+              . .\ci_system\sfdx\install_package_version_to_org.ps1 -org_to_install_alias $env:SCRATCH_ALIAS -subscriber_package_version_id $second_subscriber_package_version_id
+
+
