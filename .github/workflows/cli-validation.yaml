@@ -1,7 +1,6 @@
 name: Test CLI Version
 
 on:
-  push:
   workflow_dispatch:
 
 env:

@@ -7,6 +7,7 @@ on:
 env:
   DEVHUB_ALIAS:                     "devhub"
   CLI_VERSION:                      ${{ vars.SFDX_CLI_VERSION }}
+  PACKAGE_NAME:                     ${{ vars.PACKAGE_NAME }}
   SF_DEVHUB_CLIENTID:               ${{ secrets.SF_DEVHUB_CLIENTID }}
   SF_DEVHUB_KEY_BASE64:             ${{ secrets.SF_DEVHUB_KEY_BASE64 }}
   SF_DEVHUB_ORG_URL:                ${{ secrets.SF_DEVHUB_ORG_URL }}
@@ -48,7 +49,7 @@ jobs:
           id: create_package_version
           shell: pwsh
           run: |
-            $package_name = "dx-cli-testing"
+            $package_name = $env:PACKAGE_NAME
             $subscriber_package_version_id = $( . .\ci_system\sfdx\package\simple_package_version_creation.ps1 -validation_type "skip" `
                                                               -devhub_alias $env:DEVHUB_ALIAS `
                                                               -package_name $package_name )
