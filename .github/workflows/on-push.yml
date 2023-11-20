@@ -80,7 +80,7 @@ jobs:
           shell: pwsh
           run: |
             $package_name = $env:PACKAGE_NAME
-            $subscriber_package_version_id = $( . .\ci_system\sfdx\package\simple_package_version_creation.ps1 -validation_type "skip" `
+            $second_subscriber_package_version_id = $( . .\ci_system\sfdx\package\simple_package_version_creation.ps1 -validation_type "skip" `
                                                               -devhub_alias $env:DEVHUB_ALIAS `
                                                               -package_name $package_name )
             "second_subscriber_package_version_id=$second_subscriber_package_version_id" >> $env:GITHUB_OUTPUT
