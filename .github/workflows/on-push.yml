@@ -1,0 +1,91 @@
+name: Salesforce Package Version Installation Failure on Org with Existing Package Version
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  DEVHUB_ALIAS:                     "devhub"
+  CLI_VERSION:                      ${{ vars.SFDX_CLI_VERSION }}
+  SF_DEVHUB_CLIENTID:               ${{ secrets.SF_DEVHUB_CLIENTID }}
+  SF_DEVHUB_KEY_BASE64:             ${{ secrets.SF_DEVHUB_KEY_BASE64 }}
+  SF_DEVHUB_ORG_URL:                ${{ secrets.SF_DEVHUB_ORG_URL }}
+  DEVHUB_ORG_USERNAME:              ${{ secrets.DEVHUB_ORG_USERNAME }}
+  SCRATCH_ALIAS:                    "ci-scratch-org"
+
+jobs:
+ 
+  CREATE-PACKAGE-VERSION-INSTALL-NEW-PACKAGE-VERSION-AND-RETRY:
+    
+    runs-on: ubuntu-latest
+
+    outputs:
+      subscriber_package_version_id: ${{ steps.create_package_version.outputs.subscriber_package_version_id }}
+
+    steps:
+
+        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+          uses: actions/checkout@v3
+
+        - name: INSTALL SFDX CLI
+          shell: pwsh
+          run: |
+            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+
+        - name: AUTHENTICATE DEVHUB AUTH URL
+          env:
+              DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_AUTH_URL }}
+          shell: pwsh
+          run: . ./ci_system/sfdx/auth_url.ps1 -auth_url $env:DEVHUB_AUTH_URL -org_alias "$env:DEVHUB_ALIAS"
+
+        - name: CREATE SCRATCH ORG
+          shell: pwsh
+          run: |
+            $Env:SF_LOG_LEVEL = "fatal"
+            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias $env:SCRATCH_ALIAS
+        
+        - name: CREATE SKIP VALIDATION PACKAGE VERSION
+          id: create_package_version
+          shell: pwsh
+          run: |
+            $package_name = "dx-cli-testing"
+            $subscriber_package_version_id = $( . .\ci_system\sfdx\package\simple_package_version_creation.ps1 -validation_type "skip" `
+                                                              -devhub_alias $env:DEVHUB_ALIAS `
+                                                              -package_name $package_name )
+            "subscriber_package_version_id=$subscriber_package_version_id" >> $env:GITHUB_OUTPUT
+
+        - name: PACKAGE INSTALL TO SCRATCH ORG
+          shell: pwsh
+          run: |
+              echo "This is the suscriber id:"
+              $subscriber_package_version_id = '${{ steps.create_package_version.outputs.subscriber_package_version_id }}'
+              echo "$subscriber_package_version_id"
+              . .\ci_system\sfdx\install_package_version_to_org.ps1 -org_to_install_alias $env:SCRATCH_ALIAS -subscriber_package_version_id $subscriber_package_version_id
+
+
+          
+     
+
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
+          uses: actions/checkout@v3
+
+        - name: INSTALL SFDX CLI
+          shell: pwsh
+          run: |
+            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
+
+        - name: AUTHENTICATE DEVHUB PWSH JWT
+          shell: pwsh
+          run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
+
+        - name: CREATE SCRATCH ORG
+          shell: pwsh
+          run: |
+            $Env:SF_LOG_LEVEL = "fatal"
+            $Env:SFDX_LOG_LEVEL = "fatal"
+            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test" 
