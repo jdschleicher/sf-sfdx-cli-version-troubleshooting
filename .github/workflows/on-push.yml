@@ -63,29 +63,4 @@ jobs:
               . .\ci_system\sfdx\install_package_version_to_org.ps1 -org_to_install_alias $env:SCRATCH_ALIAS -subscriber_package_version_id $subscriber_package_version_id
 
 
-          
-     
-
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-        - name: CHECKOUT CURRENT REPOSITORY IN VIRTUAL MACHINE
-          uses: actions/checkout@v3
-
-        - name: INSTALL SFDX CLI
-          shell: pwsh
-          run: |
-            . .\ci_system\sfdx\install-sfdx.ps1 -cli_version "$env:CLI_VERSION"  
-
-        - name: AUTHENTICATE DEVHUB PWSH JWT
-          shell: pwsh
-          run: . .\ci-cd\authenticate\authenticate-salesforce-devhub.ps1 -auth_key_base64 $env:SF_DEVHUB_KEY_BASE64 -auth_clientid $env:SF_DEVHUB_CLIENTID -auth_username $env:DEVHUB_ORG_USERNAME -auth_org_url $env:SF_DEVHUB_ORG_URL -devhub_alias $env:DEVHUB_ALIAS
-
-        - name: CREATE SCRATCH ORG
-          shell: pwsh
-          run: |
-            $Env:SF_LOG_LEVEL = "fatal"
-            $Env:SFDX_LOG_LEVEL = "fatal"
-            . ./ci_system/sfdx/sf_create_scratch_org.ps1 -devhub_alias $env:DEVHUB_ALIAS -scratch_org_alias "scratch-test" 
+       
